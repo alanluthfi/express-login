@@ -10,7 +10,7 @@ const PORT = process.env.PORT || 3000;
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-// Serve static files
+// Serve static files from the public directory
 app.use(express.static(path.join(__dirname, "public")));
 
 // Login endpoint
@@ -35,6 +35,11 @@ app.post("/api/login", (req, res) => {
     return res.status(401).json({ message: "Invalid credentials" });
   }
   return res.json({ message: "Login successful" });
+});
+
+// For any other routes, serve the index.html file
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
 // Start server
