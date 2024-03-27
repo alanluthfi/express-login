@@ -10,12 +10,6 @@ const PORT = process.env.PORT || 3000;
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-// Mock database of users
-const users = [
-  { username: "user1", password: "password1" },
-  { username: "user2", password: "password2" },
-];
-
 // Serve static files
 app.use(express.static(path.join(__dirname, "public")));
 
@@ -28,6 +22,11 @@ app.post("/api/login", (req, res) => {
       .status(400)
       .json({ message: "Please provide both username and password" });
   }
+  // Mock database of users
+  const users = [
+    { username: "user1", password: "password1" },
+    { username: "user2", password: "password2" },
+  ];
   // Check if user exists
   const user = users.find(
     (u) => u.username === username && u.password === password
