@@ -1,6 +1,7 @@
 // index.js
 const express = require("express");
 const bodyParser = require("body-parser");
+const path = require("path");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -15,8 +16,11 @@ const users = [
   { username: "user2", password: "password2" },
 ];
 
+// Serve static files
+app.use(express.static(path.join(__dirname, "public")));
+
 // Login endpoint
-app.post("/login", (req, res) => {
+app.post("/api/login", (req, res) => {
   const { username, password } = req.body;
   // Simple validation
   if (!username || !password) {
